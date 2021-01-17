@@ -12,7 +12,13 @@ class Teste extends React.Component {
   public render() {
     return (
       <div>
-        <FlatCard/>
+        <FlatCard title="haha">
+          <h1>gsd</h1>
+          <div>
+            <h1>haha</h1>
+            <h1>haha</h1>
+          </div>
+        </FlatCard>
       </div>
     );
   }

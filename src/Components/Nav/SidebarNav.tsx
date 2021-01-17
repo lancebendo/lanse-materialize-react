@@ -4,7 +4,6 @@ import { RouteComponentProps, Route } from "react-router";
 import styled from 'styled-components';
 import Constants from '../Shared/Constants';
 
-
 export interface NavPath {
   url: string;
   label: string;
@@ -60,59 +59,59 @@ const StyledRouteContainer = styled.div`
 `;
 //#endregion
 
+function isPathSelected(url: string, pathname: string) {
+  const hrefParts = pathname.split('/');
+  const currentUrl = hrefParts.length > 1 && hrefParts[1] !== '' ? `/${hrefParts[1]}/` : `${hrefParts[0]}/`;
 
-const SidebarNav: React.FunctionComponent<ISidebarNavProps> = (props: ISidebarNavProps) => {
+  return currentUrl === url;
+}
 
-  function isPathSelected(url: string) {
-    const hrefParts = props.location.pathname.split('/');
-    const currentUrl = hrefParts.length > 1 && hrefParts[1] !== '' ? `/${hrefParts[1]}/` : `${hrefParts[0]}/`;
+const SidebarNav: React.FunctionComponent<ISidebarNavProps> = (props: ISidebarNavProps) => (
+  <React.Fragment>
+    {//collapsible sidebar here
+    }
+    <ul id={props.id} className="sidenav">
+      {props.navPaths.map(navPath => {
+        const _NavLink = isPathSelected(navPath.url, props.location.pathname) ? StyledSelectedNavLink : StyledNavLink;
 
-    return currentUrl === url;
-  }
+        return (
+          <StyledLi key={"collapsible" + navPath.url}>
+            <_NavLink to={navPath.url} className="waves-effect">
+              <StyledSpan>{navPath.label}</StyledSpan>
+              <i className={`material-icons left ${navPath.fabIcon}`}>{navPath.icon}</i>
+            </_NavLink>
+          </StyledLi>);
+      }
+      )}
+    </ul>
 
-  return (
-    <React.Fragment>
 
-      <ul id={props.id} className="sidenav">
-        {props.navPaths.map(navPath => {
-          const _NavLink = isPathSelected(navPath.url) ? StyledSelectedNavLink : StyledNavLink;
+    {//fixed sidebar here
+    }
+    <StyledUl className="sidenav sidenav-fixed z-depth-0">
+      {props.navPaths.map(navPath => {
+        const _NavLink = isPathSelected(navPath.url, props.location.pathname) ? StyledSelectedNavLink : StyledNavLink;
 
-          return (
-            <StyledLi key={props.id + navPath.url}>
-              <_NavLink to={navPath.url} className="waves-effect">
-                <StyledSpan>{navPath.label}</StyledSpan>
-                <i className={`material-icons left ${navPath.fabIcon}`}>{navPath.icon}</i>
-              </_NavLink>
-            </StyledLi>);
-        }
-        )}
+        return (
+          <StyledLi key={navPath.url}>
+            <_NavLink to={navPath.url} className="waves-effect">
+              <StyledSpan>{navPath.label}</StyledSpan>
+              <i className={`material-icons left ${navPath.fabIcon}`}>{navPath.icon}</i>
+            </_NavLink>
+          </StyledLi>);
+      }
+      )}
+    </StyledUl>
 
-      </ul>
-
-      <StyledUl className="sidenav sidenav-fixed z-depth-0">
-        {props.navPaths.map(navPath => {
-          const _NavLink = isPathSelected(navPath.url) ? StyledSelectedNavLink : StyledNavLink;
-
-          return (
-            <StyledLi key={navPath.url}>
-              <_NavLink to={navPath.url} className="waves-effect">
-                <StyledSpan>{navPath.label}</StyledSpan>
-                <i className={`material-icons left ${navPath.fabIcon}`}>{navPath.icon}</i>
-              </_NavLink>
-            </StyledLi>);
-        }
-        )}
-      </StyledUl>
-
-      {props.navPaths.map(navPath => (
-        <StyledRouteContainer className="nav-content">
-          <Route key={navPath.url} path={navPath.url} exact component={navPath.component} />
-        </StyledRouteContainer>
-      ))}
-
-    </React.Fragment>
-  );
-};
+    {//containers here
+    }
+    {props.navPaths.map(navPath => (
+      <StyledRouteContainer key={"containerDiv_" + navPath.url} className="nav-content">
+        <Route key={navPath.url} path={navPath.url} exact component={navPath.component} />
+      </StyledRouteContainer>
+    ))}
+  </React.Fragment>
+);
 
 
 export default withRouter(SidebarNav);
