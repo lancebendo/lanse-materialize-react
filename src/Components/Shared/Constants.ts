@@ -31,8 +31,8 @@ class Constants {
     // font sizes
     primaryHeaderFontSize = '1.9rem';
     secondaryHeaderFontSize = '1.4rem';
-    parimaryDescFontSize = '1.15rem';
-    secondaryDescFontSize = '0.9rem';
+    primaryDescFontSize = '1.15rem';
+    secondaryDescFontSize = '1rem';
     navigationLabelFontSize = '1rem';
     linkLabelFontSize = '1rem';
 

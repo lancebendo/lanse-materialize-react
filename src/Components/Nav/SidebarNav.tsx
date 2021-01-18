@@ -20,7 +20,7 @@ type ISidebarNavProps = RouteComponentProps & {
 //#region styles
 const StyledUl = styled.ul`
   margin-top: 108px;
-  width: 270px;
+  width: 230px;
   z-index: 1;
 `;
 
@@ -49,8 +49,8 @@ const StyledSpan = styled.span`
 
 const StyledRouteContainer = styled.div`
 @media only screen and (min-width: ${Constants.mediumScreen}) {
-    padding: 40px 40px 5px;
-    margin-left: 270px;
+    padding: 40px 45px 5px;
+    margin-left: 230px;
 }
 
 @media only screen and (max-width: ${Constants.mediumScreen}) {
@@ -106,9 +106,11 @@ const SidebarNav: React.FunctionComponent<ISidebarNavProps> = (props: ISidebarNa
     {//containers here
     }
     {props.navPaths.map(navPath => (
-      <StyledRouteContainer key={"containerDiv_" + navPath.url} className="nav-content">
-        <Route key={navPath.url} path={navPath.url} exact component={navPath.component} />
-      </StyledRouteContainer>
+      <Route key={navPath.url} path={navPath.url} exact >
+        <StyledRouteContainer key={"containerDiv_" + navPath.url} className="nav-content">
+          <navPath.component />
+        </StyledRouteContainer>
+      </Route>
     ))}
   </React.Fragment>
 );

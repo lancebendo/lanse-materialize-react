@@ -56,17 +56,19 @@ const FlatCard: React.FunctionComponent<IFlatCardProps> = (props) => {
   return (
     <StyledFlatCardMain>
 
-      { props.title != null ? (<FlatCardHeader />) : "" }
+      { props.title != null ? (<FlatCardHeader />) : ""}
 
       {
-        React.Children.map(props.children, (child) => (
-          <React.Fragment>
-            <StyledDivider />
-            {child}
-          </React.Fragment>
-        ))
+        React.Children.map(props.children, (child, index) => {
+          return (
+            <React.Fragment>
+              {index === 0 && props.title == null ? "" : (<StyledDivider />)}
+              {child}
+            </React.Fragment>
+          );
+        })
       }
-      
+
     </StyledFlatCardMain>
   );
 };

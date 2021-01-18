@@ -1,49 +1,61 @@
 import React, { useEffect } from 'react';
-import SidebarNav, { NavPath } from './Components/Nav/SidebarNav';
 import { BrowserRouter } from 'react-router-dom';
-import CollapsibleSidebarTrigger from './Components/Nav/CollapsibleSidebarTrigger';
-import HeaderNav from './Components/Nav/HeaderNav';
-import GlobalStyle from './Components/Shared/GlobalStyle';
-import FlatCard from './Components/Card/FlatCard';
-import { Table } from './Components/Data/Table';
-
+import { GlobalStyle } from './Components/Shared/';
+import { FlatCard } from './Components/Card/';
+import { SidebarNav, NavPath, CollapsibleSidebarTrigger, HeaderNav } from './Components/Nav/';
+import { CardCollection, Collection, Table, DataFilter } from './Components/Data/';
 
 //#region mock routes
 class Teste extends React.Component {
   public render() {
     return (
-      <div>
-        <FlatCard title="haha">
-          <h1>gsd</h1>
-          <div>
-            <h1>haha</h1>
-            <h1>haha</h1>
-          </div>
-        </FlatCard>
-      </div>
+        <Collection title="Announcements"/>
     );
   }
 }
 
-const Tes3: React.FunctionComponent = () => {
+
+const TableComponent: React.FunctionComponent = () => {
   return (
-      <Table />
+    <div className="row">
+      <div className="col l2">
+        <DataFilter/>
+      </div>
+
+      <div className="col l10">
+        <Table />
+      </div>
+    </div>
   );
 }
 
-const path: NavPath = {
+const Home: NavPath = {
   url: "/",
-  label: "facebook",
+  label: "Home",
   icon: "home",
   component: Teste,
 }
-const path2: NavPath = {
-  url: "/facebook2/",
-  label: "facebook2",
+
+const CollectionPath: NavPath = {
+  url: "/collection/",
+  label: "Collection",
   icon: "home",
-  component: Tes3,
+  component: Collection,
 }
 
+const CardCollectionPath: NavPath = {
+  url: "/card-collection/",
+  label: "Card Collection",
+  icon: "home",
+  component: CardCollection,
+}
+
+const TablePath: NavPath = {
+  url: "/table/",
+  label: "Table",
+  icon: "home",
+  component: TableComponent,
+}
 //#endregion
 
 
@@ -62,7 +74,7 @@ function App() {
       </HeaderNav>
 
       <BrowserRouter>
-        <SidebarNav id="slide-out" navPaths={[path, path2]} />
+        <SidebarNav id="slide-out" navPaths={[Home, CollectionPath, CardCollectionPath, TablePath]} />
       </BrowserRouter>
 
     </div>
