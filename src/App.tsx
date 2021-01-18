@@ -5,6 +5,7 @@ import CollapsibleSidebarTrigger from './Components/Nav/CollapsibleSidebarTrigge
 import HeaderNav from './Components/Nav/HeaderNav';
 import GlobalStyle from './Components/Shared/GlobalStyle';
 import FlatCard from './Components/Card/FlatCard';
+import { Table } from './Components/Data/Table';
 
 
 //#region mock routes
@@ -23,21 +24,10 @@ class Teste extends React.Component {
     );
   }
 }
-class Teste2 extends React.Component {
-  public render() {
-    return (
-      <div>
-        <h1>te222222222e</h1>
-      </div>
-    );
-  }
-}
 
 const Tes3: React.FunctionComponent = () => {
   return (
-    <div>
-      <h1>t333</h1>
-    </div>
+      <Table />
   );
 }
 

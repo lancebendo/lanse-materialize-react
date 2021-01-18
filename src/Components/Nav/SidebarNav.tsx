@@ -72,14 +72,14 @@ const SidebarNav: React.FunctionComponent<ISidebarNavProps> = (props: ISidebarNa
     }
     <ul id={props.id} className="sidenav">
       {props.navPaths.map(navPath => {
-        const _NavLink = isPathSelected(navPath.url, props.location.pathname) ? StyledSelectedNavLink : StyledNavLink;
+        const NavLink = isPathSelected(navPath.url, props.location.pathname) ? StyledSelectedNavLink : StyledNavLink;
 
         return (
           <StyledLi key={"collapsible" + navPath.url}>
-            <_NavLink to={navPath.url} className="waves-effect">
+            <NavLink to={navPath.url} className="waves-effect">
               <StyledSpan>{navPath.label}</StyledSpan>
               <i className={`material-icons left ${navPath.fabIcon}`}>{navPath.icon}</i>
-            </_NavLink>
+            </NavLink>
           </StyledLi>);
       }
       )}
@@ -90,14 +90,14 @@ const SidebarNav: React.FunctionComponent<ISidebarNavProps> = (props: ISidebarNa
     }
     <StyledUl className="sidenav sidenav-fixed z-depth-0">
       {props.navPaths.map(navPath => {
-        const _NavLink = isPathSelected(navPath.url, props.location.pathname) ? StyledSelectedNavLink : StyledNavLink;
+        const NavLink = isPathSelected(navPath.url, props.location.pathname) ? StyledSelectedNavLink : StyledNavLink;
 
         return (
           <StyledLi key={navPath.url}>
-            <_NavLink to={navPath.url} className="waves-effect">
+            <NavLink to={navPath.url} className="waves-effect">
               <StyledSpan>{navPath.label}</StyledSpan>
               <i className={`material-icons left ${navPath.fabIcon}`}>{navPath.icon}</i>
-            </_NavLink>
+            </NavLink>
           </StyledLi>);
       }
       )}
