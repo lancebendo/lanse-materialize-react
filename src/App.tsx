@@ -4,15 +4,11 @@ import { GlobalStyle } from './Components/Shared/';
 import { SidebarNav, NavPath, CollapsibleSidebarTrigger, HeaderNav } from './Components/Nav/';
 import { CardCollection, Collection, Table, Schema, DataFilter } from './Components/Data/';
 import mockData from './MOCK_DATA.json';
+import mockDataAddress from './MOCK_DATA_ADDRESS.json';
+import mockDataCollection from './MOCK_DATA_COLLECTION.json';
 
 //#region mock routes
-class Teste extends React.Component {
-  public render() {
-    return (
-        <Collection title="Announcements"/>
-    );
-  }
-}
+
 
 interface TestObj {
   first_name: string;
@@ -22,7 +18,23 @@ interface TestObj {
   ip_address: string;
 }
 
+interface TestAddress {
+  id: string;
+  first_name: string;
+  last_name: string;
+}
+
+interface TestCollection {
+  name: string;
+  date: string;
+  title: string;
+  content: string;
+}
+
+const TestDataCollection: TestCollection[] = JSON.parse(JSON.stringify(mockDataCollection));
+const TestDataAddress: TestAddress[] = JSON.parse(JSON.stringify(mockDataAddress));
 const TestData: TestObj[] = JSON.parse(JSON.stringify(mockData));
+
 
 const x: Schema<TestObj>[] = [{
   label: "Firstname",
@@ -47,6 +59,23 @@ const x: Schema<TestObj>[] = [{
 }];
 
 
+const CardCollectionComponent: React.FunctionComponent = () => (
+  <CardCollection dataSource={TestDataAddress} primaryContentSchema={data => data.id} secondaryContentSchema={data => data.first_name} descriptionSchema={data => data.last_name} defaultCardOnClick={() => alert('haha') } dataCardOnClick={(data) => alert(data.first_name)} />
+);
+
+const CollectionComponent: React.FunctionComponent = () => (
+  <Collection title="Announcements" 
+  dataSource={TestDataCollection} 
+  titleSchema={data => data.name} 
+  subTitleSchema={data => data.title} 
+  dateSchema={data => data.date} 
+  contentSchema={data => data.content} 
+  reloadOnClick={(setLoading) => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 4000);
+  }}/>
+);
+
 const TableComponent: React.FunctionComponent = () => {
   return (
     <div className="row">
@@ -65,21 +94,21 @@ const Home: NavPath = {
   url: "/",
   label: "Home",
   icon: "home",
-  component: Teste,
+  component: CollectionComponent,
 }
 
 const CollectionPath: NavPath = {
   url: "/collection/",
   label: "Collection",
   icon: "home",
-  component: Collection,
+  component: CollectionComponent,
 }
 
 const CardCollectionPath: NavPath = {
   url: "/card-collection/",
   label: "Card Collection",
   icon: "home",
-  component: CardCollection,
+  component: CardCollectionComponent,
 }
 
 const TablePath: NavPath = {

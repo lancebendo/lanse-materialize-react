@@ -68,37 +68,37 @@ const LinkCard = styled(Card)`
 
 
 //onclick handler, datasource ang need ng mga to.
-interface ICardCollectionProps {
+interface ICardCollectionProps<T> {
+    dataSource: T[];
+    primaryContentSchema(data: T): React.ReactNode | React.ReactElement;
+    secondaryContentSchema(data: T): React.ReactNode | React.ReactElement;
+    descriptionSchema: (data: T) => React.ReactNode | React.ReactElement;
+    defaultCardOnClick: () => void;
+    dataCardOnClick: (data: T) => void;
 }
 
-const CardCollection: React.FunctionComponent<ICardCollectionProps> = (props) => {
+const CardCollection = <T extends object>(props: ICardCollectionProps<T>) => {
     return (
         <Container>
-            <LinkCard className="row valign-wrapper waves-effect" /* onclick dito */>
+            <LinkCard onClick={props.defaultCardOnClick} className="row valign-wrapper waves-effect" /* onclick dito */>
                 <div className="col s6 offset-s3">
                     <div className="row center-align no-margin-bottom">
                         <span>+ add new address</span>
                     </div>
                 </div>
             </LinkCard>
-            <Card className="waves-effect" /* onclick dito */>
-                <div className="card-container">
-                    <span className="card-primary">Primary Content</span>
+
+            {props.dataSource.map((data, index) => (
+                <Card key={index} className="waves-effect" onClick={() => props.dataCardOnClick(data)}>
+                    <div className="card-container">
+                    <span className="card-primary">{props.primaryContentSchema(data)}</span>
                     <br />
-                    <span className="card-secondary">Secondary Content</span>
+                    <span className="card-secondary">{props.secondaryContentSchema(data)}</span>
                     <br />
-                    <span className="card-description">Description</span>
-                </div>
-            </Card>
-            <Card className="waves-effect" /* onclick dito */>
-                <div className="card-container">
-                    <span className="card-primary">Primary Content</span>
-                    <br />
-                    <span className="card-secondary">Secondary Content</span>
-                    <br />
-                    <span className="card-description">Description</span>
-                </div>
-            </Card>
+                    <span className="card-description">{props.descriptionSchema(data)}</span>
+                    </div>
+                </Card>
+            ))}
 
         </Container>
     );
