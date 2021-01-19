@@ -25,16 +25,6 @@ const StyledFlatCardHeader = styled.div`
 const StyledDivider = styled.div`
   border-top: 1px solid ${Constants.flatCardBorderColor};
 `;
-
-
-// const FlatCardSectionLink = styled.div`
-// padding: 21px;
-// border-top: 1px solid ${Constants.flatCardBorderColor};
-// &:hover {
-//   background-color: ${Constants.alternateHoverColor};
-//   cursor: pointer;
-// }
-// `;
 //#endregion
 
 interface IFlatCardProps {

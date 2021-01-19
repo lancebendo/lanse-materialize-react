@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalStyle } from './Components/Shared/';
-import { FlatCard } from './Components/Card/';
 import { SidebarNav, NavPath, CollapsibleSidebarTrigger, HeaderNav } from './Components/Nav/';
-import { CardCollection, Collection, Table, DataFilter } from './Components/Data/';
+import { CardCollection, Collection, Table, Schema, DataFilter } from './Components/Data/';
+import mockData from './MOCK_DATA.json';
 
 //#region mock routes
 class Teste extends React.Component {
@@ -14,6 +14,38 @@ class Teste extends React.Component {
   }
 }
 
+interface TestObj {
+  first_name: string;
+  last_name: string;
+  email: string;
+  gender: string;
+  ip_address: string;
+}
+
+const TestData: TestObj[] = JSON.parse(JSON.stringify(mockData));
+
+const x: Schema<TestObj>[] = [{
+  label: "Firstname",
+  index: 2,
+  value: (data: TestObj) => (<span>{data.first_name}</span>),
+}, {
+  label: "Lastname",
+  index: 1,
+  value: (data: TestObj) => (<span>{data.last_name}</span>),
+}, {
+  label: "Email",
+  index: 0,
+  value: (data: TestObj) => (<span>{data.email}</span>),
+}, {
+  label: "Gender",
+  index: 3,
+  value: (data: TestObj) => (<span>{data.gender}</span>),
+}, {
+  label: "IP Address",
+  index: 4,
+  value: (data: TestObj) => (<span>{data.ip_address}</span>),
+}];
+
 
 const TableComponent: React.FunctionComponent = () => {
   return (
@@ -23,7 +55,7 @@ const TableComponent: React.FunctionComponent = () => {
       </div>
 
       <div className="col l10">
-        <Table />
+        <Table title="Test Table" dataSource={TestData} schema={x}/>
       </div>
     </div>
   );
